@@ -1,0 +1,37 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: build and deploy
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    steps:
+      - name: Say hello
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+        run: |
+          echo "hello world"
+      - name: Register an artifact with {PRODUCT}
+        id: register
+        uses: cloudbees-io/register-build-artifact@v2
+        with:
+          name: myTestApp
+          url: docker.io/myTestapp/myimg:1.0.0
+          version: 1.0.0
+      - name: Print output parameter artifact ID
+        uses: docker://alpine:latest
+        shell: sh
+        run: |
+           echo "artifact ID for myTestApp:${{ cloudbees.version }} is: ${{ steps.register.outputs.artifact-id }}"
+  deploy-preprod:
+      needs: build
+      environment: pre-prod
+      steps:
+        - name: Register deployed artifact
+          uses: cloudbees-io/register-deployed-artifact@v2
+          with:
+            artifact-id: ${{ needs.build.steps.register.outputs.artifact-id }}
