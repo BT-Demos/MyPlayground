@@ -23,8 +23,8 @@ jobs:
         uses: cloudbees-io/register-build-artifact@v2
         with:
           name: myTestApp
-          url: docker.io/myTestapp/myimg:1.0.0
-          version: 1.0.0
+          url: docker.io/myTestapp/myimg:2.0.0
+          version: 2.0.0
       - name: Print output parameter artifact ID
         uses: docker://alpine:latest
         shell: sh
@@ -33,6 +33,16 @@ jobs:
   deploy-preprod:
       needs: build
       environment: pre-prod
+      steps:
+        - name: Register deployed artifact
+          uses: cloudbees-io/register-deployed-artifact@v2
+          with:
+            artifact-id: ${{ needs.build.outputs.artifact-id }}
+  deploy-qa:
+      needs: 
+        - build
+        - deploy-preprod
+      environment: qa
       steps:
         - name: Register deployed artifact
           uses: cloudbees-io/register-deployed-artifact@v2
