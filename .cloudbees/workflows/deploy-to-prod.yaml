@@ -1,0 +1,13 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: deploy to prod
+on:
+  workflow_dispatch:
+jobs:
+  deploy-prod:
+    environment: prod
+    steps:
+      - name: Register deployed artifact
+        uses: cloudbees-io/register-deployed-artifact@v2
+        with:
+          artifact-id: bab4e541-3d9e-49f7-9b0b-79d10e3b1992
