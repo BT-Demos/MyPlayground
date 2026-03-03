@@ -9,6 +9,9 @@ on:
 
 jobs:
   build:
+    outputs:
+      # Map the step's output to a job output
+      artifact-id: ${{ steps.register.outputs.artifact-id }} #
     steps:
       - name: Say hello
         uses: docker://golang:1.20.3-alpine3.17
@@ -34,4 +37,4 @@ jobs:
         - name: Register deployed artifact
           uses: cloudbees-io/register-deployed-artifact@v2
           with:
-            artifact-id: ${{ needs.build.steps.register.outputs.artifact-id }}
+            artifact-id: ${{ needs.build.outputs.artifact-id }}
