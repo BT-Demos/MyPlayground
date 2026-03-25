@@ -31,6 +31,7 @@ pipeline {
                 echo 'Deploying...'
                 registerDeployedArtifactMetadata(
                     id: "${env.ARTIFACT_ID}",
+                    url: "https://myapp",
                     targetEnvironment: "pre-prod",
                     label: "pre-prod"
                 )
