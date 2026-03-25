@@ -30,7 +30,7 @@ pipeline {
                 registerDeployedArtifactMetadata(
                     id: "${env.ARTIFACT_ID}",
                     targetEnvironment: "pre-prod",
-                    labels: "pre-prod"
+                    label: "pre-prod"
                 )
             }
         }
@@ -40,7 +40,7 @@ pipeline {
                 registerDeployedArtifactMetadata(
                     id: "${env.ARTIFACT_ID}",
                     targetEnvironment: "qa",
-                    labels: "qa"
+                    label: "qa"
                 )
             }
         }
