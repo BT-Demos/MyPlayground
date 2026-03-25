@@ -46,20 +46,22 @@ jobs:
           content: |-
             Build completed and artifacts published to CloudBees platform
   deploy-preprod:
+      runs-on: ubuntu-latest
       needs: build
-      environment: pre-prod
       steps:
         - name: Register deployed artifact
           uses: cloudbees-io/register-deployed-artifact@v2
           with:
             artifact-id: ${{ needs.build.outputs.artifact-id }}
+            target-environment: pre-prod
   deploy-qa:
+      runs-on: ubuntu-latest
       needs: 
         - build
         - deploy-preprod
-      environment: qa
       steps:
         - name: Register deployed artifact
           uses: cloudbees-io/register-deployed-artifact@v2
           with:
             artifact-id: ${{ needs.build.outputs.artifact-id }}
+            target-environment: qa
