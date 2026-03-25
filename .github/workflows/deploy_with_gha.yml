@@ -14,10 +14,10 @@ permissions:
 
 jobs:
   build:
-  outputs:
-      # Map the step's output to a job output
-      artifact-id: ${{ steps.register.outputs.artifact-id }} #
     runs-on: ubuntu-latest
+    outputs:
+      # Map the step's output to a job output
+      artifact-id: ${{ steps.register.outputs.artifact-id }} 
     steps:
       - name: Compile Code
         run: echo "Compiling..."
