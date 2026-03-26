@@ -31,9 +31,8 @@ pipeline {
                 echo 'Deploying...'
                 registerDeployedArtifactMetadata(
                     id: "${env.ARTIFACT_ID}",
-                    url: "https://myapp",
                     targetEnvironment: "pre-prod",
-                    label: "pre-prod"
+                    labels: "pre-prod"
                 )
             }
         }
@@ -43,7 +42,7 @@ pipeline {
                 registerDeployedArtifactMetadata(
                     id: "${env.ARTIFACT_ID}",
                     targetEnvironment: "qa",
-                    label: "qa"
+                    labels: "qa"
                 )
             }
         }
