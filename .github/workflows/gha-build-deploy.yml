@@ -1,0 +1,42 @@
+name: GHA Build and Deploy
+
+on:
+  - workflow_dispatch
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Compile Code
+        run: echo "Compiling..."
+
+      - name: Produce Binary
+        run: echo "Generating binary..."
+
+      - name: Push binary
+        run: echo "Pushing Binary to ECR..."
+
+      - name: Register Build Artifacts in CloudBees Unify
+        uses: cloudbees-io-gha/register-build-artifact@v3
+        id: go-action
+        with:
+          name: "gha-artifact-step"
+          version: 1.0.0
+          url: "docker.io/example:latest"
+          digest: sha256:1234567890abcdef123456123456abcdef789078907890abcdefabcdef123456
+          label: For testing
+          type: docker
+
+      - name: Deploy artifact
+        run: echo 'Deploying Build ArtifactId ${{ steps.go-action.outputs.cbp_artifact_id }}'
+
+      - name: Register deployment
+        uses: docker://public.ecr.aws/cloudbees/actions/gha-register-deployed-artifact:main-8d819ee6c37734d240bc3e399c7515d85aa14f76
+        env:
+          CLOUDBEES_API_URL: "https://api.cloudbees.io"
+          TARGET_ENVIRONMENT: production
+          DEPLOYMENT_LABELS: latest
+          ARTIFACT_ID: ${{ steps.go-action.outputs.cbp_artifact_id }}
