@@ -2,12 +2,9 @@
 name: Deploy with GHA
 
 on:
-    push:
-         branches:
-          - main 	
     workflow_dispatch:
 env:
-    artifact_version: 1.0
+    artifact_version: 2.0
 permissions:
       id-token: write
       contents: read
