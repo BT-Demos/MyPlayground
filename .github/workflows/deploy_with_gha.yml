@@ -53,8 +53,8 @@ jobs:
           uses: docker://public.ecr.aws/cloudbees/actions/gha-register-deployed-artifact:main-8d819ee6c37734d240bc3e399c7515d85aa14f76
           env:
             CLOUDBEES_API_URL: "https://api.cloudbees.io"
-            artifact-id: ${{ needs.build.outputs.artifact-id }}
-            target-environment: pre-prod
+            ARTIFACT_ID: ${{ needs.build.outputs.artifact-id }}
+            TARGET_ENVIRONMENT: pre-prod
   deploy-qa:
       runs-on: ubuntu-latest
       needs: 
@@ -65,5 +65,5 @@ jobs:
           uses: docker://public.ecr.aws/cloudbees/actions/gha-register-deployed-artifact:main-8d819ee6c37734d240bc3e399c7515d85aa14f76
           env:
             CLOUDBEES_API_URL: "https://api.cloudbees.io"
-            artifact-id: ${{ needs.build.outputs.artifact-id }}
-            target-environment: qa
+            ARTIFACT_ID: ${{ needs.build.outputs.artifact-id }}
+            TARGET_ENVIRONMENT: qa
