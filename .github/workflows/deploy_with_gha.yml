@@ -50,8 +50,9 @@ jobs:
       needs: build
       steps:
         - name: Register deployed artifact
-          uses: cloudbees-io/register-deployed-artifact@v2
-          with:
+          uses: docker://public.ecr.aws/cloudbees/actions/gha-register-deployed-artifact:main-8d819ee6c37734d240bc3e399c7515d85aa14f76
+          env:
+            CLOUDBEES_API_URL: "https://api.cloudbees.io"
             artifact-id: ${{ needs.build.outputs.artifact-id }}
             target-environment: pre-prod
   deploy-qa:
@@ -62,7 +63,6 @@ jobs:
       steps:
         - name: Register deployed artifact
           uses: docker://public.ecr.aws/cloudbees/actions/gha-register-deployed-artifact:main-8d819ee6c37734d240bc3e399c7515d85aa14f76
-          id: register-deployed-artifact
           env:
             CLOUDBEES_API_URL: "https://api.cloudbees.io"
             artifact-id: ${{ needs.build.outputs.artifact-id }}
