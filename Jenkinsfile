@@ -30,7 +30,7 @@ pipeline {
             steps {
                 echo 'Deploying...'
                 registerDeployedArtifactMetadata(
-                    id: "${env.ARTIFACT_ID}",
+                    artifactId: "${env.ARTIFACT_ID}",
                     targetEnvironment: "pre-prod",
                     labels: "pre-prod"
                 )
@@ -40,7 +40,7 @@ pipeline {
             steps {
                 echo 'Deploying...'
                 registerDeployedArtifactMetadata(
-                    id: "${env.ARTIFACT_ID}",
+                    artifactId: "${env.ARTIFACT_ID}",
                     targetEnvironment: "qa",
                     labels: "qa"
                 )
