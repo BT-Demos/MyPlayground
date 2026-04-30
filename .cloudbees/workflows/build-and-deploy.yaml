@@ -22,7 +22,6 @@ jobs:
         id: register
         uses: cloudbees-io/register-build-artifact@v2
         with:
-          name: myTestApp
           url: docker.io/myTestapp/myimg:2.0.0
           version: 2.0.0
       - name: Print output parameter artifact ID
