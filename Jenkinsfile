@@ -14,7 +14,7 @@ pipeline {
                     echo 'Registering the metadata'
                     def artifactId = registerBuildArtifactMetadata(
                         name: "My Playground",
-                        version: "2.0.0",
+                        version: "2.0.1",
                         type: "docker",
                         url: "http://localhost:1112",
                         digest: "6u637064707039346163693930",
