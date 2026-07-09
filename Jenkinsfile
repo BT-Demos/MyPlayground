@@ -18,7 +18,7 @@ pipeline {
                         type: "docker",
                         url: "http://localhost:1112",
                         digest: "6u637064707034346163693920",
-                        componentId: "26f3882c-ab2c-4665-979d-9af727e82e36",
+                        componentId: "59faf413-0e9f-46fe-8145-6637d9903f6a",
                         label: "pre-prod"
                     )
                     echo "Artifact Id is: ${artifactId}"
